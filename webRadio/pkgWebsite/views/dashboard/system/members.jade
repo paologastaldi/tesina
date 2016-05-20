@@ -1,0 +1,50 @@
+extends ./systemDashboardLayout.jade
+
+block append head
+    script(type='text/javascript').
+        var page = "#members";
+
+block append content
+    div.container-fluid(id="members")
+        h1 Membri
+        hr
+            
+        div.row
+            form.form-inline.row.container-fluid(method="POST", role="form", action="/dashboard/system/addMember")
+                div.form-group.row.col-lg-4.col-md-4
+                    label(for="txtEmail") Email
+                    input.form-control(type="text", name="txtEmail", placeholder="Email", required)
+                div.form-group.row.col-lg-4.col-md-4
+                    label(for="cmbRoleId") Ruolo
+                    select.form-control(name="cmbRoleId")
+                        each role in roles
+                            option(value= role.id) #{role.description}
+                input.btn.btn-default.col-lg-4.col-md-4.pull-right(type="submit", value="Aggiungi")
+        hr
+        div.row
+            table.table.table-striped(style="color:black;")
+                thead
+                    tr
+                        th ID utente
+                        th Email 
+                        th Ruolo
+                        th
+                        th
+                tbody
+                    each member in members
+                        tr
+                            td #{member.id}
+                            td #{member.email}
+                            form.form-inline.row.container-fluid(action="/dashboard/system/modifyMember", method="POST")
+                                input(type="hidden", name="txtUserId", value= member.id)
+                                td
+                                    select.form-control(name="cmbRoleId")
+                                        each role in roles
+                                            option(value= role.id, selected = (role.id === member.roleId)) #{role.description}
+                                td
+                                    input.btn.btn-default(type="submit", value="Modifica")
+                            
+                            td
+                                form.form-inline.row.container-fluid(action="/dashboard/system/removeMember", method="POST")
+                                    input(type="hidden", name="txtUserId", value= member.id)
+                                    input.btn.btn-default(type="submit", value="Rimuovi")

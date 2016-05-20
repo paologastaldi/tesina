@@ -1,0 +1,9 @@
+extends ./../layout.jade
+
+block append body
+    div.container-fluid(id="dashboard")
+        div.col-md-3(id="asideMenu")
+            block asideMenu
+                - var page = "overview";
+        div.col-md-9(id="content")
+            block content

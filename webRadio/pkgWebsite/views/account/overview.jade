@@ -1,0 +1,32 @@
+extends ./../layout.jade
+
+block append body
+    div.container.userForm(id="overview")
+        h1 Panoramica
+        hr
+        
+        form(id="frmModifyUser", method="post", action="/account/modifyUser", role="form", data-toggle="validator")
+            div.form-group
+                label(for="txtFirstName") Nome
+                input.form-control(type="text", id="txtFirstName", name="txtFirstName", placeholder="Nome", value= userData.firstName)
+            div.form-group
+                label(for="txtLastName") Cognome
+                input.form-control(type="text", id="txtLastName", name="txtLastName", placeholder="Cognome", value= userData.lastName)
+            did.form-group
+                label(for="txtEmail") Email *
+                input(type="email", class="form-control", id="txtEmail", name="txtEmail", placeholder="Email", value= userData.email, required)
+            div.form-group(data-toggle="validator")
+                div.form-group
+                    label(for="txtPassword") Password *
+                    input.form-control(type="password", id="txtPassword", name="txtPassword", placeholder="Password", data-toggle="validator", value= userData.password, required)
+                div.form-group
+                    label(for="txtConfirmPassword") Conferma password *
+                    input.form-control(type="password", id="txtConfirmPassword", name="txtConfirmPassword", placeholder="Conferma password", data-match="#txtPassword", data-match-error="Whoops, le password non coincidono", value= userData.password, required)
+            input.btn.btn-default(type="submit", value="Modifica")
+        
+        hr
+        form(id="frmDeleteUser", method="post", action="/account/removeUser", role="form", data-toggle="validator")
+            input.btn.btn-default(type="submit", value="Elimina account")
+        
+        hr
+        a.btn.btn-default(href="/dashboard", type="submit") Le mie dashboard

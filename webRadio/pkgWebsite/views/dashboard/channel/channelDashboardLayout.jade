@@ -1,0 +1,16 @@
+extends ./../dashboardLayout.jade
+
+block append asideMenu
+    ul.nav.nav-stacked.nav-pills
+        li#overview(role="presentation")
+            a(href="/dashboard/channel/overview") Panoramica
+        li#members(role="presentation")
+            a(href="/dashboard/channel/members") Membri
+        li#roles(role="presentation")
+            a(href="/dashboard/channel/roles") Ruoli
+        li#albums(role="presentation")
+            a(href="/dashboard/channel/albums") Album
+        li#playlists(role="presentation")
+            a(href="/dashboard/channel/playlists") Playlist
+        li#settings(role="presentation")
+            a(href="/dashboard/channel/settings") Impostazioni

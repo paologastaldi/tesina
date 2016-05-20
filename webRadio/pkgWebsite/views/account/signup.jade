@@ -1,0 +1,32 @@
+extends ./../layout.jade
+ 
+block append body
+    div.container.userForm(id="signup")
+        h1 Registrati
+        hr
+        
+        form(id="frmSignup", method="post", action="/account/addUser", role="form", data-toggle="validator")
+            div.form-group
+                label(for="txtFirstName") Nome
+                input.form-control(type="text", id="txtFirstName", name="txtFirstName", placeholder="Nome")
+            div.form-group
+                label(for="txtLastName") Cognome
+                input.form-control(type="text", id="txtLastName", name="txtLastName", placeholder="Cognome")
+            did.form-group
+                label(for="txtEmail") Email *
+                input(type="email", class="form-control", id="txtEmail", name="txtEmail", placeholder="Email", required)
+            div.form-group(data-toggle="validator")
+                div.form-group
+                    label(for="txtPassword") Password (8-20 caratteri) *
+                    input.form-control(type="password", id="txtPassword", name="txtPassword", placeholder="Password", data-toggle="validator", pattern=".{8,20}", required)
+                div.form-group
+                    label(for="txtConfirmPassword") Conferma password *
+                    input.form-control(type="password", id="txtConfirmPassword", name="txtConfirmPassword", placeholder="Conferma password", data-match="#txtPassword", data-match-error="Whoops, le password non coincidono", pattern=".{8,20}", required)
+            div.form-inline.form-group.checkbox
+                label
+                    input.form-control(type="checkbox", id="chkRememberMe", name="chkRememberMe", style="margin-top:-1%;")
+                    | Ricordami
+            div.form-group
+                p Sono d'accordo con i 
+                    a(href="/website/privacy") Termini di servizio
+            input.btn.btn-default(type="submit", value="Registrati")

@@ -1,0 +1,58 @@
+extends ./channelDashboardLayout.jade
+
+block append head
+    script(type='text/javascript').
+        var page = "#albums";
+        
+block append content
+    div.container-fluid(id="albumTracks")
+        div.col-md-8.col-lg-8
+            div.row
+                h1 #{album.title}
+                p (Le modifiche saranno visibili alla prossima esecuzione del brano)
+                hr
+        
+            div.row
+                form.form-inline.row.container-fluid(method="POST", role="form", name="frmLoadTracks", id="frmLoadTracks", action="/dashboard/channel/addAlbumTracks", enctype="multipart/form-data")
+                    input(type="hidden", name="txtAlbumId", value= album.id)
+                    div.form-group.row.col-lg-4.col-md-4
+                        label(for="tracks") Seleziona brani
+                        input.form-control.btn.btn-default.btn-file(type="file", name="tracks", id="tracks", required, multiple, accept=".mp3")
+                    input.btn.btn-default.col-lg-4.col-md-4.pull-right(type="submit", value="Aggiungi", name="btnLoadTracks", id="btnLoadTracks", data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading files")
+                    
+            hr
+            div.row
+                table.table.table-striped(style="color:black;")
+                    thead
+                        tr
+                            th Brani
+                            th Autore
+                            th
+                    tbody
+                    
+                    each track in tracks
+                        tr
+                            form.form-inline.row.container-fluid(action="/dashboard/channel/modifyAlbumTrack" method="POST")
+                                input(type="hidden", name="txtTrackId", value= track.id)
+                                td
+                                    input.form-control(type="text", name="txtTitle", value= track.title, required)
+                                td
+                                    input.form-control(type="text", name="txtAuthor", value= track.author)
+                                td
+                                    input.btn.btn-default(type="submit" value="Modifica")
+                            
+                            form.form-inline.row.container-fluid(action="/dashboard/channel/removeAlbumTrack" method="POST")
+                                input(type="hidden", name="txtTrackId", value= track.id)
+                                td
+                                    input.btn.btn-default(type="submit" value="Rimuovi")
+        div.col-md-3.col-lg-3.pull-right(id="aside-info")
+            div.row
+                div.thumbnail
+                    img(src= "#{album.thumbnail ? '../../img/' + album.thumbnail : '../../../img/defaultThumbnail.jpg'}")
+            div.row.container
+                form.form-inline.row.container-fluid(method="POST", role="form", enctype='multipart/form-data', action="/dashboard/channel/modifyAlbumThumbnail")
+                    div.row
+                        input.btn.btn-file.btn-default(type="file", name="albumThumbnail", id="albumThumbnail", accept=".jpg")
+                    div.row
+                        div.form-group
+                            input.btn.btn-default(type="submit", value="Cambia thumbnail")

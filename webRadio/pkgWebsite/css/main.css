@@ -1,0 +1,240 @@
+@font-face{
+    font-family: 'Glyphicons Halflings';
+    src: url('../fonts/glyphicons-halflings-regular.eot');
+    src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded- opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
+
+@media (max-width: 700px){
+   .mobile-hide{
+       display: none;
+   }
+} 
+    
+body{
+    font-family:Arial;
+    font-weight:bold;
+    height:100%;
+}
+
+#header{
+    background-color:white;
+}
+
+#topMenu{
+    border-radius:0%;
+}
+
+#body{
+    margin-top:52px;
+    padding-bottom:2%;
+    margin-bottom:2%;
+}
+
+#footer{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    color:white;
+    background-color:black;
+    text-align:center;
+    padding-top:1%;
+    padding-bottom:1%;
+    z-index:3;
+}
+
+.no-margin{
+    margin:0px;
+}
+
+.center{
+    margin-right:auto;
+    margin-left:auto;
+    text-align:center;
+}
+
+.list{
+    float:none;
+    margin:0 auto;
+}
+
+.listItemBorder{
+    margin-top:1%;
+    margin-bottom:1%;
+}
+
+.listItem{
+    border:2px solid white;
+    border-radius:3%;
+    float:none;
+    margin:0 auto;
+    padding-top:5%;
+    padding-bottom:5%;
+}
+
+.listItemContent{
+    float:none;
+    margin:0 auto;
+}
+
+.listItemText{
+    text-align:center;
+}
+
+label{
+    margin-right:2%;
+}
+
+.userForm{
+    width:50%;
+}
+
+/*#login{
+    background-color:gray;
+    width:auto;
+    height:auto;
+    padding:0;
+}*/
+
+/*#frmLogin{
+    background-color:white;
+    color:black;
+    border: 1px solid gray;
+    border-radius:3%;
+    padding:5%;
+    text-align:left;
+    float:none;
+    margin:0 auto;
+    margin-top:10%;
+    margin-bottom:10%;
+}*/
+
+/*#privacy{
+    margin:5% 5% 2% 5%;
+}*/
+
+/*
+player ---
+*/
+
+#player{
+    border:2px solid gray;
+    border-radius:2%;
+    padding:2%;
+}
+
+#playerInfo div p, div h3, div hr{
+    font-weight:bold;
+    color:black;
+}
+
+#playerControls{
+    height:auto;
+    clear:both;
+}
+
+#playerBtnPlayPause{
+    border-radius:100%;
+    width:100%;
+    padding:0;
+    position:absolute;
+    z-index:1;
+    background-color:white;
+    outline:none;
+    position:relative;
+    background-image: url("../../img/thumbnail2.jpg") no repeat;
+}
+
+#playerThumbnail{
+    border-radius:100%;
+    z-index:2;
+    width:100%;
+    height:100%;
+    border:2px solid gray;
+}
+
+#playerBtnPlayPauseImg{
+    opacity:0;
+    z-index:3;
+    position:absolute;
+    width:100%;
+    height:100%;
+}
+
+#playerSettings{
+    padding-top:10%;
+}
+
+#playerVolumeSlider{
+    width:100%;
+}
+
+#playerProgressBar{
+    margin-top:7%;
+    margin-bottom:7%;
+    /*background-image:linear-gradient(to bottom,gray 100%,gray 100%);*/
+}
+
+#playerProgressBarProgress{
+    width:90%; /*definisce il progresso della progress bar*/
+    /*background-image:linear-gradient(to bottom,gray 0%,black 100%);*/
+    /*background-image:linear-gradient(to bottom,black 100%,black 100%);*/
+}
+
+#playerTiming{
+    margin-top:3%;
+}
+
+#playerImgVolume{
+    width:40%;
+    height:40%;
+}
+
+.vcenter{
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+/*
+account page ---
+*/
+
+/*#homepageAccount{
+    background-color:rgba(128,128,128,0.8);
+    width:50%;
+    height:100%;
+    border:1px solid black;
+}*/
+
+.thumbnail, .thumbnail img{
+    border-radius:100%;
+}
+
+.thumbnail img{
+    border:2px solid black;
+}
+
+#dashboard{
+    padding-top:1%;
+}
+
+.sortableList{
+    list-style-type:none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    border:2px solid gray;
+    min-height:50vh;
+    border-radius:2%;
+}
+
+.list-item {
+    border-radius:2%;
+    padding: 1%;
+    margin: 1%;
+}
+
+.ui-state-active, .ui-widget-content ui-state-active, .ui-widget-header ui-state-active{
+    border:1px solid gray !IMPORTANT;
+    background:gray !IMPORTANT;
+}

@@ -1,0 +1,33 @@
+extends ./../layout.jade
+
+block append head
+    script.
+        function autoLogin(){
+            var email = Cookies.get("txtEmail");
+            var password = Cookies.get("txtPassword");
+            
+            if(email && password){
+                $("#txtEmail").val(email);
+                $("#txtPassword").val(password);
+                $("#frmLogin").submit(); //automatical form submit
+            }
+        }
+        window.onload = autoLogin;
+
+block append body
+    div.container.userForm(id="login")
+        h1 Login
+        hr
+        
+        form(id="frmLogin", method="post", action="/account/checkLogin", role="form", data-toggle="validator")
+            div.form-group
+                label(for="txtEmail") Email *
+                input.form-control(type="email", id="txtEmail", name="txtEmail", placeholder="Email", required)
+            div.form-group
+                label(for="txtPassword") Password *
+                input.form-control(type="password", id="txtPassword", name="txtPassword", placeholder="Password", required)
+            div.form-inline.form-group.checkbox
+                label
+                    input.form-control(type="checkbox", id="chkRememberMe", name="chkRememberMe", style="margin-top:-1%;")
+                    | Ricordami
+            input.btn.btn-default(type="submit", value="Login")

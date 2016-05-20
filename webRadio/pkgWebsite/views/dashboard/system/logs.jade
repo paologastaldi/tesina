@@ -1,0 +1,26 @@
+extends ./systemDashboardLayout.jade
+
+block append head
+    script(type='text/javascript').
+        var page = "#logs";
+
+block append content
+    div.container-fluid(id="logs")
+        h1 Log
+        hr
+        
+        div.row
+            table.table.table-striped(style="color:black;")
+                thead
+                    tr
+                        th Progressivo log
+                        th Data
+                        th ID utente
+                        th Descrizione
+                tbody
+                    each log in logs
+                        tr
+                            td #{log.id}
+                            td #{log.inputDate}
+                            td #{log.userId}
+                            td #{log.description}

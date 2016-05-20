@@ -1,0 +1,49 @@
+extends ./channelDashboardLayout.jade
+
+block append head
+    script(type='text/javascript').
+        var page = "#albums";
+
+block append content
+    div.container-fluid(id="albums")
+        h1 Album
+        hr
+            
+        div.row
+            form.form-inline.row.container-fluid(method="POST", role="form", action="/dashboard/channel/addAlbum")
+                div.form-group.col-lg-4.col-md-4.row
+                    label(for="txtTitle") Album
+                    input.form-control(type="text", name="txtTitle", placeholder="Titolo", required)
+                input.btn.btn-default.col-lg-4.col-md-4.pull-right(type="submit", value="Aggiungi")
+
+        hr
+        div.row
+            table.table.table-striped(style="color:black;")
+                thead
+                    tr
+                        th Album 
+                        th Online da
+                        th Brani
+                        th
+                        th
+                        th
+                tbody
+                    each album in albums
+                        tr
+                            form.form-inline.row.container-fluid(action="/dashboard/channel/modifyAlbum", method="POST")
+                                input(type="hidden", name="txtAlbumId", value= album.id)
+                                
+                                td
+                                    input.form-control(type="text", name="txtTitle", placeholder="Titolo", value= album.title, required)
+                                td #{album.inputDate}
+                                td #{album.tracks}
+                                td
+                                    input.form-control(type="submit" value="Modifica")
+                            td
+                                form.form-inline.row.container-fluid(action="/dashboard/channel/albumTracks", method="GET")
+                                    input(type="hidden", name="txtAlbumId", value= album.id)
+                                    input.form-control(type="submit" value="Seleziona")
+                            td
+                                form.form-inline.row.container-fluid(action="/dashboard/channel/removeAlbum", method="POST")
+                                    input(type="hidden", name="txtAlbumId", value= album.id)
+                                    input.form-control(type="submit" value="Rimuovi")

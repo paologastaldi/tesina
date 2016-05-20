@@ -1,0 +1,88 @@
+doctype html
+
+html
+    head
+        link(href='../css/bootstrap.min.css', rel="stylesheet")
+        link(href='../css/bootstrap-theme.min.css', rel="stylesheet")
+        link(href="../css/bootstrap-select.min.css", rel="stylesheet")
+        link(href="../css/bootstrap-switch.min.css", rel="stylesheet")
+        link(href="../css/jquery-ui.min.css", rel="stylesheet")
+        link(href="../css/jquery-ui.structure.min.css", rel="stylesheet")
+        link(href="../css/jquery-ui.theme.min.css", rel="stylesheet")
+        link(href="../css/bootstrap-dialog.min.css", rel="stylesheet")
+        //link(href="../css/bootstrap-player.css", rel="stylesheet")
+        
+        link(href='../css/main.css', rel='stylesheet')
+        
+        link(rel="icon" type="image/png"  href="../img/favicon2.png")
+        
+        script(src="../js/jquery.min.js")
+        script(src="../js/bootstrap.min.js")
+        script(src="../js/bootstrap-select.min.js")
+        script(src="../js/bootstrap-switch.min.js")
+        script(src="../js/js.cookie.js")
+        script(src="../js/jquery-ui.min.js")
+        script(src="../js/bootstrap-dialog.min.js")
+        
+        script(src="../js/html5slider.js")
+        script(src="../js/audio.min.js")
+        
+        //script(src="../js/bootstrap-player.js")
+        
+        block head
+        
+        script(src="../js/errors.js")
+        script(src="../js/main.js")
+        
+        //thank you jade for the next code...
+        
+        script.
+            var errorCodes = [];
+        - if(typeof(errors) !== "undefined")
+            each error in errors
+                script.
+                    errorCodes.push(!{error});
+        
+        title="Web Radio"
+        
+    body
+        div(id="header")
+            block header
+                div.navbar-wrapper.navbar-fixed-top
+                    nav.navbar.navbar-default(id="topMenu")
+                        div.container-fluid
+                            div.navbar-header
+                            button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#topMenuItems", aria-expanded="false", aria-controls="topMenuItems")
+                                span.icon-bar
+                                span.icon-bar
+                                span.icon-bar
+                            a.navbar-brand(href="/website/") Web Radio
+                            
+                            nav.navbar-collapse.collapse(aria-expanded="false", id="topMenuItems", class="navbar-collapse collapse")
+                                ul.nav.navbar-nav.navbar-left
+                                    li
+                                        a(href="/website/genres") Generi
+                                    li
+                                        a(href="/website/privacy") Privacy
+                                ul.nav.navbar-nav.navbar-right
+                                    li
+                                        a(href="/account/signup") Registrati
+                                    li
+                                        a(href="/account/login") Login
+                                    li.dropdown
+                                        a.dropdown-toggle(data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false") Account
+                                            span.caret
+                                        ul.dropdown-menu
+                                            li
+                                                a(href="/account/") Il mio account
+                                            li
+                                                a(href="/dashboard") Le mie dashboard
+                                            li.divider(role="separator")
+                                            li
+                                                a(href="/account/logout") Logout
+        div(id="body")
+            block body
+            
+        div(id="footer")
+            block footer
+                p 2016 - Web Radio

@@ -1,0 +1,62 @@
+extends ./../layout.jade
+
+block append body
+
+    //carousel
+    
+    div.carousel.slide(id="topCarousel", data-ride="carousel")
+    
+        //carousel indicators
+        
+        ol.carousel-indicators
+            li.active(data-target="#topCarousel" data-slide-to="0")
+            li(data-target="#topCarousel" data-slide-to="1")
+            li(data-target="#topCarousel" data-slide-to="2")
+        div.carousel-inner(role="listbox")
+            div.item
+                img(src="../../img/piano3.jpg")
+                div.container.carousel-caption.mobile-hide
+                    h1 Web radio
+                    p
+                        a.btn.btn-lg.btn-primary(href="/account/signup", role="button") Registrati ora!
+                        
+            div.item.active
+                img(src="../../img/doublebass1.jpg")
+                div.container
+                    div.carousel-caption.mobile-hide
+                        h1 Tesina Gastaldi Paolo
+                        
+            div.item
+                img(src="../../img/headphones1.jpg")
+                div.container
+                    div.carousel-caption.mobile-hide
+                        h1 Molti canali per ogni genere!
+                        
+        //carousel cursors
+        
+        a.left.carousel-control(href="#topCarousel",role="button", data-slide="prev")
+            span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
+        
+        a.right.carousel-control(href="#topCarousel", role="button", data-slide="next")
+            span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
+        
+    //genres list
+    
+    a(name="genres")
+   
+    div.container.list
+        div.row
+            each genre in genres
+                div.col-xs-12.col-sm-6.col-md-4.col-lg-3.listItemBorder
+                    div.col-xs-12.col-sm-12.col-md-12.col-lg-12.listItem
+                        div.row
+                            div.col-xs-10.col-sm-10.col-md-10.col-lg-10.listItemContent
+                                div.row
+                                    a.thumbnail(href="/website/genre?id=" + genre.id)
+                                        img(src= genre.thumbnail ? "../../img/" + genre.thumbnail : "../../img/defaultThumbnail.jpg")
+                                    div
+                                        h3.center #{genre.name}
+                
+                                
+                                    
+        

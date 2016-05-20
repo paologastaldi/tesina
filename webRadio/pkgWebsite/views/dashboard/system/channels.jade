@@ -1,0 +1,55 @@
+extends ./systemDashboardLayout.jade
+
+block append head
+    script(type='text/javascript').
+        var page = "#channels";
+
+block append content
+    div.container-fluid(id="channels")
+        h1 Canali
+        hr
+        
+        div.row
+            form.form-inline.row.container-fluid(method="POST", role="form", action="/dashboard/system/addChannel")
+                div.form-group.row.col-lg-3.col-md-3
+                    label(for="txtName") Nome
+                    input.form-control(type="text", name="txtName", placeholder="Nome", required)
+                div.form-group.row.col-lg-3.col-md-3
+                    label(for="txtDescription") Descrizione
+                    input.form-control(type="text", name="txtDescription", placeholder="Descrizione")
+                div.form-group.row.col-lg-3.col-md-3
+                    label(for="cmbGenreId") Genere
+                    select.form-control(name="cmbGenreId")
+                        each genre in genres
+                            option(value= genre.id, selected) #{genre.name}
+                input.btn.btn-default.col-lg-3.col-md-3.pull-right(type="submit", value="Aggiungi")
+        hr
+        div.row
+            table.table.table-striped(style="color:black;")
+                thead
+                    tr
+                        th Nome
+                        th Descrizione
+                        th Genere
+                        th
+                        th
+                tbody
+                
+                each channel in channels
+                    tr
+                        form.form-inline.row.container-fluid(action="/dashboard/system/modifyChannel" method="POST")
+                            input(type="hidden", name="txtChannelId", value= channel.id)
+                            td
+                                input.form-control(type="text", name="txtName", placeholder="Nome", value= channel.name, required)
+                            td
+                                input.form-control(type="text", name="txtDescription", placeholder="Descrizione", value = channel.description)
+                            td
+                                select.form-control(name="cmbGenreId")
+                                    each genre in genres
+                                        option(value= genre.id, selected = (genre.id === channel.genreId)) #{genre.name}
+                            td
+                                input.btn.btn-default(type="submit" value="Modifica")
+                        td
+                            form.form-inline.row.container-fluid(action="/dashboard/system/removeChannel" method="POST")
+                                input(type="hidden", name="txtChannelId", value= channel.id)
+                                input.btn.btn-default(type="submit" value="Rimuovi")

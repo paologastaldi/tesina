@@ -1,0 +1,42 @@
+extends ./../layout.jade
+
+block append body
+    div.container(id="channel")
+        h1 #{channel.name}
+        hr
+        
+        div.row.container
+                    
+            div.container.row.col-md-8.col-md-offset-2.col-lg-8.col-lg-offset-2.col-sm-8.col-sm-offset-2.col-xs-8.col-xs-offset-2(id="player")
+                div.col-md-3.col-lg-3.col-sm-3.col-xs-3
+                    div.row
+                        button.btn-circle.vcenter(id="playerBtnPlayPause")
+                            img(id="playerBtnPlayPauseImg", src="../../img/stop.png")
+                            img(src= (channel.thumbnail ? "../../img/" + channel.thumbnail : "../../img/defaultThumbnail.jpg"), id="playerThumbnail", name="playerThumbnail")
+                        
+                div.col-md-8.col-md-offset-1.col-lg-8.col-lg-offset-1.col-sm-8.col-sm-offset-1.col-xs-8.col-xs-offset-1
+                    div.row
+                        h3(id="txtPlayerTrackTitle") SCONOSCIUTO
+                    div.row
+                        hr.no-margin
+                    div.row
+                        h4(id="txtPlayerAuthor") Sconosciuto
+                    div.row
+                        hr.no-margin
+                    div.row(id="playerSettings")
+                        div.col-md-2.col-lg-2.col-sm-2.col-xs-2.vcenter
+                            img(name="playerImgVolume", id="playerImgVolume", src="../../img/highVolume.png")
+                        div.col-md-4.col-lg-4.col-sm-4.col-xs-4.vcenter
+                            div(id="playerVolumeSlider")
+                        div.col-md-5.col-md-offset-1.col-lg-5.col-lg-offset-1.col-sm-5.col-sm-offset-1.col-xs-5.col-xs-offset-1.row.container.vcenter
+                            form.form-inline.row.container-fluid
+                                input(type="hidden", name="txChannelId", id="txChannelId", value= channel.id)
+                                label(for="cmbQualities") Qualità: 
+                                select.form-control(name="cmbQualities", id="cmbQualities")
+                                    each quality in qualities
+                                        option(value= quality.bitRate) #{quality.description}
+                    
+                audio(autoplay, preload="none", id="playerAudio", name="playerAudio")
+                    source(id="playerAudioSource", name="playerAudioSource", src="/website/listenTo?id=" + parseInt(channel.id) + "&quality=" + (qualities[0].bitRate ? qualities[0].bitRate : '128'), type="audio/mpeg")
+                    script.
+                        getMetadata();

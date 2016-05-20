@@ -1,0 +1,51 @@
+extends ./channelDashboardLayout.jade
+
+block append head
+    script(type='text/javascript').
+        var page = "#roles";
+        
+block append content
+    div.container-fluid(id="roles")
+        h1 Ruoli
+        p (I permessi visibili nell'elenco ruoli non sono quelli realmente assegnati al ruolo, bensì tutti quelli disponibili)
+        hr
+            
+        div.row
+            form.form-inline.row.container-fluid(method="POST", role="form", action="/dashboard/channel/addRole")
+                div.form-group.row.col-lg-4.col-md-4
+                    label(for="txtDescription") Descrizione
+                    input.form-control(type="text", name="txtDescription", placeholder="Descrizione", required)
+                div.form-group.row.col-lg-4.col-md-4
+                    label(for="cmbRoleId") Permessi
+                    select.selectpicker(name="cmbPermissionsId", multiple)
+                        each permission in permissions
+                            option(value= permission.id, selected) #{permission.description}
+                input.btn.btn-default.col-lg-4.col-md-4.pull-right(type="submit", value="Aggiungi")
+                
+        hr
+        div.row
+            table.table.table-striped(style="color:black;")
+                thead
+                    tr
+                        th Ruoli
+                        th Permessi
+                        th
+                        th
+                tbody
+                
+                each role in roles
+                    tr
+                        form.form-inline.row.container-fluid(action="/dashboard/channel/modifyRole" method="POST")
+                            input(type="hidden", name="txtRoleId", value= role.id)
+                            td
+                                input.form-control(type="text", name="txtDescription", placeholder="Descrizione", value= role.description, required)
+                            td
+                                select.selectpicker(name="cmbPermissionsId", id="cmbPermissionsId", multiple)
+                                    each permission in permissions
+                                        option(value= permission.id, selected) #{permission.description}
+                            td
+                                input.btn.btn-default(type="submit" value="Modifica")
+                        td
+                            form.form-inline.row.container-fluid(action="/dashboard/channel/removeRole" method="POST")
+                                input(type="hidden", name="txtRoleId", value= role.id)
+                                input.btn.btn-default(type="submit" value="Rimuovi")

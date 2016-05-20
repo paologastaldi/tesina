@@ -1,0 +1,54 @@
+extends ./channelDashboardLayout.jade
+
+block append head
+    script(type='text/javascript').
+        var page = "#playlists";
+
+block append content
+    div.container-fluid(id="playlists")
+        h1 Playlist
+        p (La playlist attivata entrerà in esecuzione solo dopo il riavvio del canale)
+        hr
+            
+        div.row
+            form.form-inline.row.container-fluid(method="POST", role="form", action="/dashboard/channel/addPlaylist")
+                div.form-group.col-lg-4.col-md-4.row
+                    label(for="txtName") Nome
+                    input.form-control(type="text", name="txtName", id="txtName", placeholder="Nome", required)
+                input.btn.btn-default.col-lg-4.col-md-4.pull-right(type="submit", value="Aggiungi")
+
+        hr
+        div.row
+            table.table.table-striped(style="color:black;")
+                thead
+                    tr
+                        th Playlist
+                        th Online da
+                        th Brani
+                        th
+                        th
+                        th
+                        th
+                tbody
+                    each playlist in playlists
+                        tr
+                            form.form-inline.row.container-fluid(action="/dashboard/channel/modifyPlaylist", method="POST")
+                                input(type="hidden", name="txtPlaylistId", value= playlist.id)
+                                td
+                                    input.form-control(type="text", name="txtName", id="txtName", placeholder="Nome", value= playlist.name, required)
+                                td #{playlist.inputDate}
+                                td #{playlist.tracks}
+                                td    
+                                    input.form-control(type="submit" value="Modifica")
+                            td
+                                form.form-inline.row.container-fluid(action="/dashboard/channel/playlistTracks", method="POST")
+                                    input(type="hidden", name="txtPlaylistId", id="txtPlaylistId", value= playlist.id)
+                                    input.form-control(type="submit" value="Seleziona")
+                            td
+                                form.form-inline.row.container-fluid(action="/dashboard/channel/activatePlaylist", method="POST")
+                                    input(type="hidden", name="txtPlaylistId", id="txtPlaylistId", value= playlist.id)
+                                    input.form-control(type="submit" value="Attiva")
+                            td
+                                form.form-inline.row.container-fluid(action="/dashboard/channel/removePlaylist", method="POST")
+                                    input(type="hidden", name="txtPlaylistId", id="txtPlaylistId", value= playlist.id)
+                                    input.form-control(type="submit" value="Rimuovi")

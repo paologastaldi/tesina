@@ -1,0 +1,30 @@
+extends ./systemDashboardLayout.jade
+
+block append head
+    script(type='text/javascript').
+        var page = "#overview";
+
+block append content
+    div.container-fluid(id="overview")
+        div
+            h1 Panoramica
+            hr
+            
+            table.table.table-striped(style="color:black;")
+                tbody
+                    tr
+                        th Nome server:
+                        th #{configData['project']['name']}
+                    tr
+                        th Descrizione server:
+                        th #{configData['project']['description']}
+                    tr
+                        th Porta server:
+                        th #{configData['system']['serverPort']}
+                    tr
+                        th Server max client:
+                        th #{configData['system']['maxClients']}
+                    tr
+                        th Host database:
+                        th #{configData['databaseConnection']['host']}
+                        

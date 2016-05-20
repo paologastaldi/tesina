@@ -1,0 +1,41 @@
+extends ./channelDashboardLayout.jade
+
+block append head
+    script(type='text/javascript').
+        var page = "#overview";
+        
+block append content
+    div.container-fluid(id="overview")
+        div.row
+            div.col-md-9.col-lg-9
+                h1 Panoramica
+                hr
+                
+                table.table.table-striped(style="color:black;")
+                    tbody
+                        tr
+                            th Canale:
+                            th #{channel.name}
+                        tr
+                            th ID canale:
+                            th(id="channelId", name="channelId") #{channel.id}
+                        tr
+                            th Data creazione:
+                            th #{channel.inputDate}
+                        tr
+                            th Stato canale:
+                            th #{channel.active ? "Online" : "Offline"}
+                                //div
+                                    input(type="checkbox", name="chkActiveChannel", id="chkActiveChannel")
+            div.col-md-3.col-lg-3
+                div(id="aside-info")
+                    div.row
+                        div.thumbnail
+                            img(src= "#{channel.thumbnail ? '../../img/' + channel.thumbnail : '../../../img/defaultThumbnail.jpg'}")
+                    div.row
+                        form.form-inline.row.container-fluid(method="POST", role="form", enctype='multipart/form-data', action="/dashboard/channel/modifyChannelThumbnail")
+                            div.row
+                                input.btn.btn-file.btn-default(type="file", name="channelThumbnail", id="channelThumbnail", accept=".jpg")
+                            div.row
+                                div.form-group
+                                    input.btn.btn-default(type="submit", value="Cambia thumbnail")

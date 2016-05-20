@@ -1,0 +1,25 @@
+extends ./channelDashboardLayout.jade
+
+block append head
+    script(type='text/javascript').
+        var page = "#settings";
+        var chkStatus = !{channel.active ? true  : false};
+        
+block append content
+    div.container-fluid(id="settings")
+        h1 Impostazioni
+        hr
+            
+        div.row.col-md-9.col-lg-9
+            table.table.table-striped(style="color:black;")
+                tbody
+                    tr
+                        th ID canale:
+                        th(id="channelId", name="channelId") #{channel.id}
+                    tr
+                        th Stato canale:
+                        th.row
+                            div.pull-left
+                                input(type="checkbox", name="chkActiveChannel", id="chkActiveChannel")
+                            div.pull-right
+                                button.btn.btn-default(type="checkbox", name="btnReloadChannel", id="btnReloadChannel") Riavvia canale

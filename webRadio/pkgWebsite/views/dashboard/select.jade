@@ -1,0 +1,17 @@
+extends ./../layout.jade
+         
+block append body
+
+    div.container.userForm(id="dashboards")
+        h1 Le mie dashboard
+        hr
+        
+        if systemMember
+            div.row
+                a.btn.btn-default.row.col-md-4.col-lg-4(href="/dashboard/system") Sistema
+            hr
+            
+        each channel in channels
+            p
+                div.row
+                    a.btn.btn-default.row.col-md-4.col-lg-4(href="/dashboard/channel?id=" + channel.id) #{channel.name}

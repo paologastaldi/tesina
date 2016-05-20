@@ -1,0 +1,42 @@
+extends ./channelDashboardLayout.jade
+
+block append head
+    script(type='text/javascript').
+        var page = "#playlists";
+        
+    script.
+        $(function() {
+            $(".sortableList").sortable({
+                connectWith:['.sortableList']
+            });
+            $(".sortableList").disableSelection();
+        });
+    
+block append content
+    div.row(id="playlistTracks")
+        h3 #{playlist.name}
+        p (I brani aggiunti entreranno in esecuzione solo dopo il riavvio del canale)
+        hr
+        
+        div.row
+        
+            div.col-md-6.col-lg-6
+                form.form-inline.container-fluid(action="/dashboard/channel/modifyPlaylistTracks", method="POST")
+                    input(type="hidden", name="txtPlaylistId", value =playlist.id)
+                    
+                    p Brani nella playlist
+                    
+                    ul.sortableList.pull-left
+                        each track in playlistTracks
+                            li.ui-state-default.list-item
+                                p #{track.title}
+                                input(type="hidden", name="txtTrackId", value =track.id)
+                    input.btn.btn-default(type="submit", value="Modifica", style="margin-top:2%;")
+            div.col-md-6.col-lg-6
+                p Altri brani
+                
+                ul.sortableList.pull-right
+                    each track in noPlaylistTracks
+                        li.ui-state-default.list-item
+                            p #{track.title}
+                            input(type="hidden", name="txtTrackId", value =track.id)

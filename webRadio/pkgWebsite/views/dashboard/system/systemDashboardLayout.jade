@@ -1,0 +1,19 @@
+extends ./../dashboardLayout.jade
+    
+block append asideMenu
+    ul.nav.nav-stacked.nav-pills
+        li#overview(role="presentation") 
+            a(href="/dashboard/system/overview") Panoramica
+        li#members(role="presentation")
+            a(href="/dashboard/system/members") Membri
+        li#roles(role="presentation")
+            a(href="/dashboard/system/roles") Ruoli
+        li#genres(role="presentation")
+            a(href="/dashboard/system/genres") Generi
+        li#channels(role="presentation")
+            a(href="/dashboard/system/channels") Canali
+        //li#settings(role="presentation")
+            a(href="/dashboard/system/settings") Impostazioni
+        li#logs(role="presentation")
+            a(href="/dashboard/system/logs") Log
+    

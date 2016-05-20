@@ -1,0 +1,23 @@
+extends ./../layout.jade
+
+block append body
+    div.container(id="channels")
+        h1 Tutti i canali
+        hr
+    
+        //channel list
+        
+        div.row.list
+            div.row
+                each channel in channels
+                    div.col-xs-12.col-sm-6.col-md-4.col-lg-3.listItemBorder
+                        div.col-xs-12.col-sm-12.col-md-12.col-lg-12.listItem
+                            div.row
+                                div.col-xs-10.col-sm-10.col-md-10.col-lg-10.listItemContent
+                                    div.row
+                                        a.thumbnail(href="/website/channel?id=" + channel.id)
+                                            img(src= channel.thumbnail ? "../../img/" + genre.thumbnail : "../../img/thumbnail3.jpg")
+                                        div
+                                            h3.center #{channel.name}
+                                            hr
+                                            p.center #{channel.description}

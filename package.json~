@@ -1,0 +1,20 @@
+{
+	"name": "Web Radio",
+	"version": "1.0.0",
+	"description": "Web radio to stream audio on the net",
+	"private": true,
+	"main": "webRadio.js",
+	"scripts": {
+		"start": "node --use_strict webRadio.js"
+	},
+	"author": {
+		"name": "Paolo Gastaldi",
+		"email": "paolo97.g@gmail.com"
+	},
+	"keywords": [
+		"audio",
+		"radio",
+		"sound"
+	],
+	"readmeFilename": "README.md",
+}

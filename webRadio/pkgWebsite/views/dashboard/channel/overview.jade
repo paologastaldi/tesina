@@ -32,10 +32,12 @@ block append content
                     div.row
                         div.thumbnail
                             img(src= "#{channel.thumbnail ? '../../img/' + channel.thumbnail : '../../../img/defaultThumbnail.jpg'}")
-                    div.row
-                        form.form-inline.row.container-fluid(method="POST", role="form", enctype='multipart/form-data', action="/dashboard/channel/modifyChannelThumbnail")
-                            div.row
-                                input.btn.btn-file.btn-default(type="file", name="channelThumbnail", id="channelThumbnail", accept=".jpg")
-                            div.row
-                                div.form-group
-                                    input.btn.btn-default(type="submit", value="Cambia thumbnail")
+                    div.row.container-fluid
+                        div.alert.alert-warning(role="alert")
+                            strong Attenzione: 
+                            | inserire immagini quadrate come thumbnail del canale radio (ex 12cm x 12cm)
+                        form.row.container-fluid(method="POST", role="form", name="frmChangeThumbnail", id="frmChangeThumbnail", enctype='multipart/form-data', action="/dashboard/channel/modifyChannelThumbnail")
+                            div.form-group
+                                input.btn.btn-file.btn-default(type="file", name="channelThumbnail", id="channelThumbnail", accept=".jpg", style="width:100%;")
+                            div.form-group
+                                input.btn.btn-default(type="submit", name="btnChangeThumbnail", id="btnChangeThumbnail", value="Cambia thumbnail", style="width:100%;")

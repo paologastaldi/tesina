@@ -65,12 +65,14 @@ $(document).ready(function(){
     if(typeof(chkStatus) !== "undefined") $("[name='chkActiveChannel']").bootstrapSwitch('state', chkStatus); //set status
     
     $('#chkActiveChannel').on('switchChange.bootstrapSwitch', function(event, state){
+        console.log("Channel status changed: " + state);
+        
         $.ajax({
             url: "/dashboard/channel/activeChannel",
             type: "POST",
             data: {
-                channelId: $("#txChannelId").val(),
-                status: Boolean(state)
+                channelId: $("#txtChannelId").text(),
+                status: state
             },
             dataType: "json",
             success: function(result){
@@ -84,10 +86,20 @@ $(document).ready(function(){
         $.ajax({
             url: "/dashboard/channel/reloadChannel",
             type: "POST",
-            data: {
-                channelId: $("#txChannelId").val()
+            dataType: "json",
+            success: function(){
+                BootstrapDialog.show({ //it shows a dialog box
+                    title: "Informazione",
+                    message: "Canale riavviato"
+                });
             },
-            dataType: "json"
+            error: function(){
+                BootstrapDialog.show({ //it shows a dialog box
+                    type: BootstrapDialog.TYPE_DANGER,
+                    title: "Errore",
+                    message: "Impossibile riavviare il canale"
+                });
+            }
         });
     })
     
@@ -185,6 +197,23 @@ $(document).ready(function(){
             });
         }
     }
+    
+    $("#frmLoadTracks").submit(function(){
+        BootstrapDialog.show({ //it shows a dialog box for every error
+            type: BootstrapDialog.TYPE_WARNING,
+            title: "Caricamento",
+            message: "Caricamento in corso dei file selezionati. Non cambiare pagina fino al termine dell'operazione."
+        });
+    });
+    
+    $("#frmChangeThumbnail").submit(function(){
+        BootstrapDialog.show({ //it shows a dialog box for every error
+            type: BootstrapDialog.TYPE_WARNING,
+            title: "Caricamento",
+            message: "Caricamento in corso della nuova thumbnail. Non cambiare pagina fino al termine dell'operazione."
+        });
+        $("#btnChangeThumbnail").enableButtons(false);
+    });
 });
 
 var initialMetadata = true;
@@ -198,8 +227,15 @@ function getMetadata(){
         },
         dataType: "json",
         success: function(metadata){
-            $("#txtPlayerTrackTitle").text(metadata.title.toUpperCase());
-            $("#txtPlayerAuthor").text(metadata.author);
+            if(typeof(metadata.title) === "string" && metadata.title.trim() !== "") $("#txtPlayerTrackTitle").text(metadata.title.toUpperCase()); //if null -> typeof = object
+            else $("#txtPlayerTrackTitle").text("TITOLO SCONOSCIUTO");
+            
+            if(typeof(metadata.author) === "string" && metadata.author.trim() !== "") $("#txtPlayerAuthor").text(metadata.author)
+            else $("#txtPlayerAuthor").text("Autore sconosciuto");
+            
+            if(typeof(metadata.thumbnail) === "string" && metadata.thumbnail.trim() !== "") $("#playerThumbnail").attr("src", "../../img/" + metadata.thumbnail);
+            else $("#playerThumbnail").attr("src", "../../img/defaultThumbnail.jpg");
+            
             initialMetadata = false;
             getMetadata(); //recursive function to get metadata of the next track
         }

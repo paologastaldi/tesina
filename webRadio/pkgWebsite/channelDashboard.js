@@ -14,10 +14,11 @@ function ChannelDashboard(dataManager, channelManager){
     if(!(this instanceof ChannelDashboard)) return(new ChannelDashboard(dataManager, channelManager));
     Subapp.call(this, dataManager, channelManager);
     
-    this._app.get("*", function(req, res, next){
+    this._app.all("*", (function(req, res, next){
         //if(req.session['channelsId'].indexOf(parseInt(req.param('id')))) res.redirect("/dashboard"); //if user isn't a channel member
         
         if(req.param('id') && typeof(req.session['channelsId']) !== "undefined" && req.session['channelsId'].indexOf(parseInt(req.param('id'))) >= 0){ //if user is a channel member
+            if(typeof(req.session['channelDashboard']) !== "undefined" && req.session['channelDashboard'] != req.param('id')) this._errors.push(14);
             req.session['channelDashboard'] = req.param('id');
             res.redirect("/dashboard/channel");
         }
@@ -25,7 +26,7 @@ function ChannelDashboard(dataManager, channelManager){
             if(typeof(req.session['channelDashboard']) !== "undefined") next();
             else res.redirect("/dashboard");
         }
-    });
+    }).bind(this));
     
     this._app.get("/", function(req, res){
         res.redirect("/dashboard/channel/overview");
@@ -187,7 +188,7 @@ function ChannelDashboard(dataManager, channelManager){
         this._dataManager.addRole({
             description: req.body.txtDescription,
             systemChannel: false
-        }, permissions, function(result){
+        }, permissions, (function(result){
             if(!result) this._errors.push(6);
             res.redirect("/dashboard/channel/roles");
             
@@ -196,7 +197,7 @@ function ChannelDashboard(dataManager, channelManager){
                 messageId: 7,
                 description: "channel id: " + req.session['channelDashboard'] + ", role description: " + req.body.txtDescription
             });
-        });
+        }).bind(this));
     }).bind(this));
     
     this._app.post("/modifyRole", (function(req, res){
@@ -209,7 +210,7 @@ function ChannelDashboard(dataManager, channelManager){
             id: req.body.txtRoleId,
             description: req.body.txtDescription,
             systemChannel: false  
-        }, permissions, function(result){
+        }, permissions, (function(result){
             if(!result) this._errors.push(6);
             res.redirect("/dashboard/channel/roles");
             
@@ -218,7 +219,7 @@ function ChannelDashboard(dataManager, channelManager){
                 messageId: 7,
                 description: "channel id: " + req.session['channelDashboard'] + ", role id: " + req.body.txtRoleId
             });
-        });
+        }).bind(this));
     }).bind(this));
     
     this._app.post("/removeRole", (function(req, res){
@@ -579,11 +580,11 @@ function ChannelDashboard(dataManager, channelManager){
             status = (status === "true"); //string to boolean
             if(status){
                 channel.server.start(); //starting or stopping server
-                console.log("starting channel");
+                console.log("Starting channel");
             }
             else{
                 channel.server.stop();
-                console.log("stopping channel");
+                console.log("Stopping channel");
             }
         
             channel.data.active = status; //updating channelManager data
@@ -614,7 +615,7 @@ function ChannelDashboard(dataManager, channelManager){
             messageId: 17,
             description: "channel id: " + req.session['channelDashboard']
         });
-        res.send(JSON.stringify());
+        res.send(JSON.stringify("ok"));
     }).bind(this));
 }
 inherits(ChannelDashboard, Subapp);

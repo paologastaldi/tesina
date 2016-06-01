@@ -5,7 +5,7 @@ var PlaylistManager = require("./playlistManager");
 var Decoder = require("lame").Decoder;
 var Encoder = require("lame").Encoder;
 var audioSettings = require("./audioSettings");
-var Throttle = require("throttle");
+var Throttle = require("./throttle");
 
 /**
  * Gastaldi Paolo

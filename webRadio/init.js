@@ -39,16 +39,17 @@ function init(){
     dataManager.setConfigData(config);
     
     var channelManager = new ChannelManager(dataManager);
-    var app = new App(dataManager, channelManager);
+    var app = new App(dataManager, channelManager, privateKey);
+    
     app.getApp().on("error", function(err){
         console.log("FATAL ERROR: " + err);
         init();
     });
 
     var systemConfig = config["system"];
-    http.createServer(app.getApp()).listen(systemConfig["serverPort"]);
     http.globalAgent.maxSockets = config["maxClients"];
+    http.createServer(app.getApp()).listen(systemConfig["serverPort"]);
     console.log("Server running on port " + systemConfig["serverPort"]);
 }
 
-module.exports = init;
+init();

@@ -17,6 +17,9 @@ block append content
                 input.btn.btn-default.col-lg-4.col-md-4.pull-right(type="submit", value="Aggiungi")
         hr
         div.row
+            div.alert.alert-warning(role="alert")
+                strong Attenzione: 
+                | inserire immagini quadrate come thumbnail del genere musicale (ex 12cm x 12cm)
             table.table.table-striped(style="color:black;")
                 thead
                     tr
@@ -35,13 +38,13 @@ block append content
                                 td
                                     input.btn.btn-default(type="submit" value="Modifica")
                                     
-                            form.form-inline.row.container-fluid(method="POST", role="form", enctype='multipart/form-data', action="/dashboard/system/modifyGenreThumbnail")
+                            form.form-inline.row.container-fluid(method="POST", role="form", name="frmChangeThumbnail", id="frmChangeThumbnail", enctype='multipart/form-data', action="/dashboard/system/modifyGenreThumbnail")
                                 input(type="hidden", name="txtGenreId", value= genre.id)
                                 td
                                     input.btn.btn-file.btn-default(type="file", name="genreThumbnail", id="genreThumbnail", accept=".jpg")
                                 td
                                     div.form-group
-                                        input.btn.btn-default(type="submit", value="Cambia thumbnail")
+                                        input.btn.btn-default(type="submit", name="btnChangeThumbnail", id="btnChangeThumbnail", value="Cambia thumbnail")
                             td
                                 form.form-inline.row.container-fluid(action="/dashboard/system/removeGenre" method="POST")
                                     input(type="hidden", name="txtGenreId", value= genre.id)

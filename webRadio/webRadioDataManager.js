@@ -272,6 +272,7 @@ WebRadioDataManager.prototype.modifyAlbumThumbnail = function(albumData, imageDa
  * @param callback
  */
 WebRadioDataManager.prototype._setAlbumThumbnail = function(albumData, imageData, callback){
+    if(typeof(imageData) === "undefined") imageData = { filename: null };
     this.query("UPDATE Albums SET thumbnail = ? WHERE ID = ?", [imageData.filename, albumData.id], (function(err, rows, fields){
         if(typeof(callback) === "function") callback(!err);
     }).bind(this));
@@ -326,7 +327,8 @@ WebRadioDataManager.prototype._rowToTrack = function(row){
         title: row['title'],
         albumId: row['albumID'],
         author: row['author'],
-        filename: row['filename']
+        filename: row['filename'],
+        thumbnail: row['thumbnail']
     };
     return(track);
 };
@@ -340,7 +342,7 @@ WebRadioDataManager.prototype._rowToTrack = function(row){
  * @param callback
  */
 WebRadioDataManager.prototype.getActivePlaylist = function(channelData, callback){
-    this.query("SELECT Tracks.* FROM Tracks JOIN Playlists ON Tracks.ID = Playlists.trackID JOIN ListPlaylists ON Playlists.playlistID = ListPlaylists.playlistID JOIN Channels ON ListPlaylists.channelID = Channels.ID WHERE Playlists.playlistID = Channels.activePlaylistID AND Channels.ID = ? ORDER BY Playlists.order", [channelData.id], (function(err, rows, fields) {
+    this.query("SELECT Tracks.*, Albums.thumbnail AS thumbnail FROM Tracks JOIN Playlists ON Tracks.ID = Playlists.trackID JOIN ListPlaylists ON Playlists.playlistID = ListPlaylists.playlistID JOIN Channels ON ListPlaylists.channelID = Channels.ID JOIN Albums ON Tracks.albumID = Albums.ID WHERE Playlists.playlistID = Channels.activePlaylistID AND Channels.ID = ? ORDER BY Playlists.order", [channelData.id], (function(err, rows, fields) {
         var playlist = [];
         
         if(!err && rows.length > 0){
@@ -1365,7 +1367,6 @@ WebRadioDataManager.prototype.addLog = function(logData, callback){
     var logDescription = logs[logData.messageId] + " - " + logData.description;
     
     this.query("INSERT INTO Logs (userID, description, inputDate) VALUES (?, ?, NOW())", [logData.userId, logDescription], (function(err, rows, fields){
-        if(err) console.log("ERROR: " + err);
         if(typeof(callback) === "function") callback(!err);
     }).bind(this));
 };

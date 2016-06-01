@@ -1,21 +1,48 @@
 {
-	"name": "Web Radio",
-	"version": "1.0.0",
-	"description": "Web radio to stream audio on the net",
-	"private": true,
-	"main": "webRadio.js",
-	"scripts": {
-		"start": "node --use_strict webRadio.js"
-	},
-	"author": {
-		"name": "Paolo Gastaldi",
-		"email": "paolo97.g@gmail.com"
-	},
-	"keywords": [
-		"audio",
-		"radio",
-		"stream",
-		"sound"
-	],
-	"readmeFilename": "README.md",
+  "name": "webradio",
+  "version": "1.0.0",
+  "description": "This is an application to share an audio stream via internet.",
+  "main": "webRadio.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "audio-mixer": "^0.0.1",
+    "body-parser": "^1.14.2",
+    "av": "^0.4.7",
+    "audiobuffer": "^0.2.0",
+    "cookie-parser": "^1.4.1",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "bootstrap-select": "^1.10.0",
+    "crypto": "^0.0.3",
+    "jade": "^1.11.0",
+    "aac": "^0.1.0",
+    "lame": "^1.2.3",
+    "flac.js": "^0.2.1",
+    "multer": "^1.1.0",
+    "mysql": "^2.9.0",
+    "mp3": "^0.1.0",
+    "jsdoc": "^3.4.0",
+    "throttle": "^1.0.3",
+    "nodemon": "^1.9.2",
+    "util": "^0.10.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node webRadio.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/PaoloGastaldi/tesina.git"
+  },
+  "author": "Paolo Gastaldi <paolo97.g@gmail.com>",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/PaoloGastaldi/tesina#readme",
+  "keywords": [
+    "audio",
+    "read",
+    "stream"
+  ]
 }

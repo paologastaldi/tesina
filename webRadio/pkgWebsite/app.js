@@ -18,7 +18,7 @@ var cookieParser = require("cookie-parser");
 /**
  * @constructor
  */
-function App(dataManager, channelManager){
+function App(dataManager, channelManager, key){
     if(!(this instanceof App)) return(new App(dataManager, channelManager));
     
     this._app = null;
@@ -27,19 +27,25 @@ function App(dataManager, channelManager){
     this._dashboard = null;
     this._channelManager = null;
     this._dataManager = null;
+    this._key = null;
     
     if(!(dataManager instanceof DataManager)) throw new Error("Unset dataManager");
     if(!(channelManager instanceof ChannelManager)) throw new Error("Unset channelManager");
+    if(typeof(key) !== "string") throw new Error("Unset key");
     
     this._dataManager = dataManager;
     this._channelManager = channelManager;
+    this._key = key;
     
     this._app = express();
-    this._app.use(bodyParser.urlencoded({extended: true})); 
-    this._app.use(bodyParser.urlencoded());
+    this._app.use(bodyParser.urlencoded({ extended: true })); 
     this._app.use(bodyParser.json()); // for page forms
-    this._app.use(cookieParser("12345678"));    
-    this._app.use(session({secret: "12345678"}));
+    this._app.use(cookieParser(this._key));    
+    this._app.use(session({ 
+        secret: this._key,
+        cookie: { maxAge: 1000 * 60 * 30}, //session lasts maximun half an hour
+        resave: true,
+        saveUninitialized: true }));
     this._app.set("view engine", "jade");
     this._app.set('views', (__dirname + "/views"));
     this._app.set("/views", express.static(__dirname + "/views"));

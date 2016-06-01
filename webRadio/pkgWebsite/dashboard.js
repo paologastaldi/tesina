@@ -36,19 +36,19 @@ function Dashboard(dataManager, channelManager){
         if(typeof(req.session['userId']) === "undefined") res.redirect("/account/login"); //login is required for dashboard access
         
         //else if(typeof(req.session['channelsId']) === "undefined" || typeof(req.session['systemMember']) === "undefined"){
-        this._dataManager.whichChannelsIsMember({
+        else{
+            this._dataManager.whichChannelsIsMember({
                 id: req.session['userId']
             }, (function(channelsId){
-            req.session['channelsId'] = channelsId; //all channels id of which the user is member
-            this._dataManager.isSystemMember({
+                req.session['channelsId'] = channelsId; //all channels id of which the user is member
+                this._dataManager.isSystemMember({
                     id: req.session['userId']
-                }, (function(systemMember){
-                req.session['systemMember'] = systemMember;
-                next();
+                    }, (function(systemMember){
+                    req.session['systemMember'] = systemMember;
+                    next();
+                }).bind(this));
             }).bind(this));
-        }).bind(this));
-        
-        //else next();
+        }
     }).bind(this));
     
     this._app.get("/", function(req, res){
@@ -63,6 +63,7 @@ function Dashboard(dataManager, channelManager){
                 var channel = allChannels[i];
                 if(req.session['channelsId'].indexOf(channel.id) > -1) channels.push(channel); //it gets an array of channels which the user is member of
             }
+            //if(typeof(req.session['channelDashboard']) !== "undefined") req.session['channelDashboard'] = "undefined"; //channel dashboard reset
             res.render("./dashboard/select", {
                 channels: channels,
                 systemMember: req.session['systemMember']

@@ -101,7 +101,7 @@ function SystemDashboard(dataManager, channelManager){
     this._app.post("/removeMember", (function(req, res){
         this._dataManager.removeSystemMember({
             id: req.body.txtUserId
-        }, function(result){
+        }, (function(result){
             if(!result) this._errors.push(1);
             res.redirect("/dashboard/system/members");
             
@@ -110,7 +110,7 @@ function SystemDashboard(dataManager, channelManager){
                 messageId: 4,
                 description: "user id: " + req.body.txtUserId
             });
-        });
+        }).bind(this));
     }).bind(this));
     
     this._app.all(["/roles", "/addRole", "/modifyRole", "/removeRole"], (function(req, res, next){ //user's permission check
@@ -168,6 +168,8 @@ function SystemDashboard(dataManager, channelManager){
         for(var i=0; i<req.body.cmbPermissionsId.length; i++){
             permissions.push({ id: req.body.cmbPermissionsId[i]}); //it creates an object for every selected permission
         }
+        
+        if(typeof(req.body.txtRoleId) === "object") req.body.txtRoleId = req.body.txtRoleId[0]; //if it is an array it takes only the first item
         
         this._dataManager.modifyRole({
             id: req.body.txtRoleId,

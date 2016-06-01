@@ -4,13 +4,11 @@ html
     head
         link(href='../css/bootstrap.min.css', rel="stylesheet")
         link(href='../css/bootstrap-theme.min.css', rel="stylesheet")
-        link(href="../css/bootstrap-select.min.css", rel="stylesheet")
         link(href="../css/bootstrap-switch.min.css", rel="stylesheet")
         link(href="../css/jquery-ui.min.css", rel="stylesheet")
         link(href="../css/jquery-ui.structure.min.css", rel="stylesheet")
         link(href="../css/jquery-ui.theme.min.css", rel="stylesheet")
         link(href="../css/bootstrap-dialog.min.css", rel="stylesheet")
-        //link(href="../css/bootstrap-player.css", rel="stylesheet")
         
         link(href='../css/main.css', rel='stylesheet')
         
@@ -18,7 +16,6 @@ html
         
         script(src="../js/jquery.min.js")
         script(src="../js/bootstrap.min.js")
-        script(src="../js/bootstrap-select.min.js")
         script(src="../js/bootstrap-switch.min.js")
         script(src="../js/js.cookie.js")
         script(src="../js/jquery-ui.min.js")
@@ -27,14 +24,13 @@ html
         script(src="../js/html5slider.js")
         script(src="../js/audio.min.js")
         
-        //script(src="../js/bootstrap-player.js")
-        
         block head
         
         script(src="../js/errors.js")
         script(src="../js/main.js")
         
         //thank you jade for the next code...
+        //I can't pass directly nodejs array to client javascript
         
         script.
             var errorCodes = [];

@@ -69,8 +69,8 @@ Channel.prototype._init = function(){
 		bitDepth: audioSettings.DEFAULT_BIT_DEPTH,
 		sampleRate: audioSettings.DEFAULT_SAMPLE_RATE
     });
-    this._mixer.on("error", (function(){
-        this.emit("error");
+    this._mixer.on("error", (function(err){
+        this.emit("error", err);
     }).bind(this));
     this._mixerInputs = [];
     
@@ -89,9 +89,11 @@ Channel.prototype._init = function(){
         loader.on("metadata", (function(metadata){ //when the streamed song changes it is communicated outside with metadata
             this._metadata = metadata;
             this.emit("metadata", metadata);
+            
+            console.log("Playing  " + metadata.title);
         }).bind(this));
-        loader.on("error", (function(){
-            this.emit("error");
+        loader.on("error", (function(err){
+            this.emit("error", err);
         }).bind(this));
         
         this._loaders.push(loader);

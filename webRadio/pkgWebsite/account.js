@@ -36,8 +36,9 @@ function Account(dataManager, channelManager){
     });
     
     this._app.get("/logout", (function(req, res){
-        req.session.destroy(); //session reset
-        this._removeCookies(res);
+        req.session.regenerate((function(err){ //session reset
+            this._removeCookies(res);
+        }).bind(this));
         
         res.redirect("/website/homepage");
     }).bind(this));
@@ -47,11 +48,13 @@ function Account(dataManager, channelManager){
             email: req.body.txtEmail,
             password: req.body.txtPassword
         }, (function(userId){
-            if(userId && userId >= 0) req.session['userId'] = userId;
-            
-            if(req.body.chkRememberMe) this._setCookies(req, res);
-            
-            res.redirect("/website/homepage");
+            req.session.regenerate((function(err){ //session reset
+                if(userId && userId >= 0) req.session['userId'] = userId;
+                
+                if(req.body.chkRememberMe) this._setCookies(req, res);
+                
+                res.redirect("/website/homepage");
+            }).bind(this));
         }).bind(this));
     }).bind(this));
     
@@ -68,17 +71,19 @@ function Account(dataManager, channelManager){
         }, (function(userId){
             if(userId >= 0){
                 req.session['userId'] = userId;
-                if(typeof(req.session['userId']) !== "undefined") req.session.destroy(); //it deletes old session data
-                if(req.body.chkRememberMe) this._setCookies(req, res);
+                if(typeof(req.session['userId']) !== "undefined"){
+                    req.session.regenerate((function(){ //it deletes old session data
+                        if(req.body.chkRememberMe) this._setCookies(req, res);
+                        
+                        res.redirect("/account/");
+                    }).bind(this));
+                }
             }
-        
-            res.redirect("/account/");
         }).bind(this));
-        
     }).bind(this));
     
     this._app.post("/modifyUser", (function(req, res){
-        this._dataManager.mpdifyUser({
+        this._dataManager.modifyUser({
             id: req.session['userId'],
             firstName: req.body.txtFirstName,
             lastName: req.body.txtLastName,
@@ -93,7 +98,8 @@ function Account(dataManager, channelManager){
         this._dataManager.removeUser({
             id: req.session['userId']
         }, function(result){
-            if(result)  res.redirect("/account/logout");
+            if(result) res.redirect("/account/logout");
+            else res.redirect("/website/");
         });
     }).bind(this));
 }

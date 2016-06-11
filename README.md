@@ -1,6 +1,6 @@
 # WebRadio
 
-This is an application to share an audio stream via internet.
+This is an application to share an audio stream though the Internet.
 
 THIS IS A SCHOOL PROJECT: PLEASE DO NOT TOUCH THIS CODE!
 

@@ -8,24 +8,24 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema webradio
+-- Schema inf-5ogruppo3
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `webradio` ;
+DROP SCHEMA IF EXISTS `inf-5ogruppo3` ;
 
 -- -----------------------------------------------------
--- Schema webradio
+-- Schema inf-5ogruppo3
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `webradio` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `inf-5ogruppo3` DEFAULT CHARACTER SET utf8 ;
 SHOW WARNINGS;
-USE `webradio` ;
+USE `inf-5ogruppo3` ;
 
 -- -----------------------------------------------------
--- Table `webradio`.`Genres`
+-- Table `inf-5ogruppo3`.`Genres`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `webradio`.`Genres` ;
+DROP TABLE IF EXISTS `inf-5ogruppo3`.`Genres` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `webradio`.`Genres` (
+CREATE TABLE IF NOT EXISTS `inf-5ogruppo3`.`Genres` (
   `ID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
   `inputDate` DATE NOT NULL,
@@ -34,20 +34,20 @@ CREATE TABLE IF NOT EXISTS `webradio`.`Genres` (
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `name_UNIQUE` ON `webradio`.`Genres` (`name` ASC);
+CREATE UNIQUE INDEX `name_UNIQUE` ON `inf-5ogruppo3`.`Genres` (`name` ASC);
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `ID_UNIQUE` ON `webradio`.`Genres` (`ID` ASC);
+CREATE UNIQUE INDEX `ID_UNIQUE` ON `inf-5ogruppo3`.`Genres` (`ID` ASC);
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `webradio`.`Channels`
+-- Table `inf-5ogruppo3`.`Channels`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `webradio`.`Channels` ;
+DROP TABLE IF EXISTS `inf-5ogruppo3`.`Channels` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `webradio`.`Channels` (
+CREATE TABLE IF NOT EXISTS `inf-5ogruppo3`.`Channels` (
   `ID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
   `description` VARCHAR(140) NOT NULL,
@@ -60,29 +60,29 @@ CREATE TABLE IF NOT EXISTS `webradio`.`Channels` (
   PRIMARY KEY (`ID`),
   CONSTRAINT `fk_Channels_Genres1`
     FOREIGN KEY (`genreID`)
-    REFERENCES `webradio`.`Genres` (`ID`)
+    REFERENCES `inf-5ogruppo3`.`Genres` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `name_UNIQUE` ON `webradio`.`Channels` (`name` ASC);
+CREATE UNIQUE INDEX `name_UNIQUE` ON `inf-5ogruppo3`.`Channels` (`name` ASC);
 
 SHOW WARNINGS;
-CREATE INDEX `fk_Channels_Genres1_idx` ON `webradio`.`Channels` (`genreID` ASC);
+CREATE INDEX `fk_Channels_Genres1_idx` ON `inf-5ogruppo3`.`Channels` (`genreID` ASC);
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `ID_UNIQUE` ON `webradio`.`Channels` (`ID` ASC);
+CREATE UNIQUE INDEX `ID_UNIQUE` ON `inf-5ogruppo3`.`Channels` (`ID` ASC);
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `webradio`.`Albums`
+-- Table `inf-5ogruppo3`.`Albums`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `webradio`.`Albums` ;
+DROP TABLE IF EXISTS `inf-5ogruppo3`.`Albums` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `webradio`.`Albums` (
+CREATE TABLE IF NOT EXISTS `inf-5ogruppo3`.`Albums` (
   `ID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(30) NOT NULL,
   `inputDate` DATE NOT NULL,
@@ -91,29 +91,29 @@ CREATE TABLE IF NOT EXISTS `webradio`.`Albums` (
   PRIMARY KEY (`ID`),
   CONSTRAINT `fk_Albums_Channels1`
     FOREIGN KEY (`channelID`)
-    REFERENCES `webradio`.`Channels` (`ID`)
+    REFERENCES `inf-5ogruppo3`.`Channels` (`ID`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_Albums_Channels1_idx` ON `webradio`.`Albums` (`channelID` ASC);
+CREATE INDEX `fk_Albums_Channels1_idx` ON `inf-5ogruppo3`.`Albums` (`channelID` ASC);
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `ID_UNIQUE` ON `webradio`.`Albums` (`ID` ASC);
+CREATE UNIQUE INDEX `ID_UNIQUE` ON `inf-5ogruppo3`.`Albums` (`ID` ASC);
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `albumChannel` ON `webradio`.`Albums` (`ID` ASC, `title` ASC);
+CREATE UNIQUE INDEX `albumChannel` ON `inf-5ogruppo3`.`Albums` (`ID` ASC, `title` ASC);
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `webradio`.`Tracks`
+-- Table `inf-5ogruppo3`.`Tracks`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `webradio`.`Tracks` ;
+DROP TABLE IF EXISTS `inf-5ogruppo3`.`Tracks` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `webradio`.`Tracks` (
+CREATE TABLE IF NOT EXISTS `inf-5ogruppo3`.`Tracks` (
   `ID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(30) NOT NULL,
   `author` VARCHAR(30) NOT NULL,
@@ -123,26 +123,26 @@ CREATE TABLE IF NOT EXISTS `webradio`.`Tracks` (
   PRIMARY KEY (`ID`),
   CONSTRAINT `fk_Tracks_Albums1`
     FOREIGN KEY (`albumID`)
-    REFERENCES `webradio`.`Albums` (`ID`)
+    REFERENCES `inf-5ogruppo3`.`Albums` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_Tracks_Albums1_idx` ON `webradio`.`Tracks` (`albumID` ASC);
+CREATE INDEX `fk_Tracks_Albums1_idx` ON `inf-5ogruppo3`.`Tracks` (`albumID` ASC);
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `ID_UNIQUE` ON `webradio`.`Tracks` (`ID` ASC);
+CREATE UNIQUE INDEX `ID_UNIQUE` ON `inf-5ogruppo3`.`Tracks` (`ID` ASC);
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `webradio`.`Users`
+-- Table `inf-5ogruppo3`.`Users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `webradio`.`Users` ;
+DROP TABLE IF EXISTS `inf-5ogruppo3`.`Users` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `webradio`.`Users` (
+CREATE TABLE IF NOT EXISTS `inf-5ogruppo3`.`Users` (
   `ID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `firstName` VARCHAR(50) NULL,
   `lastName` VARCHAR(50) NULL,
@@ -153,20 +153,20 @@ CREATE TABLE IF NOT EXISTS `webradio`.`Users` (
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `email_UNIQUE` ON `webradio`.`Users` (`email` ASC);
+CREATE UNIQUE INDEX `email_UNIQUE` ON `inf-5ogruppo3`.`Users` (`email` ASC);
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `ID_UNIQUE` ON `webradio`.`Users` (`ID` ASC);
+CREATE UNIQUE INDEX `ID_UNIQUE` ON `inf-5ogruppo3`.`Users` (`ID` ASC);
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `webradio`.`Roles`
+-- Table `inf-5ogruppo3`.`Roles`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `webradio`.`Roles` ;
+DROP TABLE IF EXISTS `inf-5ogruppo3`.`Roles` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `webradio`.`Roles` (
+CREATE TABLE IF NOT EXISTS `inf-5ogruppo3`.`Roles` (
   `ID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(45) NOT NULL,
   `systemChannel` TINYINT(1) NOT NULL,
@@ -174,17 +174,17 @@ CREATE TABLE IF NOT EXISTS `webradio`.`Roles` (
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `ID_UNIQUE` ON `webradio`.`Roles` (`ID` ASC);
+CREATE UNIQUE INDEX `ID_UNIQUE` ON `inf-5ogruppo3`.`Roles` (`ID` ASC);
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `webradio`.`ChannelMembers`
+-- Table `inf-5ogruppo3`.`ChannelMembers`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `webradio`.`ChannelMembers` ;
+DROP TABLE IF EXISTS `inf-5ogruppo3`.`ChannelMembers` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `webradio`.`ChannelMembers` (
+CREATE TABLE IF NOT EXISTS `inf-5ogruppo3`.`ChannelMembers` (
   `channelID` INT UNSIGNED NOT NULL,
   `userID` INT UNSIGNED NOT NULL,
   `roleID` INT UNSIGNED NOT NULL,
@@ -192,64 +192,64 @@ CREATE TABLE IF NOT EXISTS `webradio`.`ChannelMembers` (
   PRIMARY KEY (`channelID`, `userID`, `roleID`),
   CONSTRAINT `fk_ChannelMembers_User1`
     FOREIGN KEY (`userID`)
-    REFERENCES `webradio`.`Users` (`ID`)
+    REFERENCES `inf-5ogruppo3`.`Users` (`ID`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ChannelMembers_Channel1`
     FOREIGN KEY (`channelID`)
-    REFERENCES `webradio`.`Channels` (`ID`)
+    REFERENCES `inf-5ogruppo3`.`Channels` (`ID`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_UtentiChannel_Ruoli1`
     FOREIGN KEY (`roleID`)
-    REFERENCES `webradio`.`Roles` (`ID`)
+    REFERENCES `inf-5ogruppo3`.`Roles` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_ChannelMembers_Channel1_idx` ON `webradio`.`ChannelMembers` (`channelID` ASC);
+CREATE INDEX `fk_ChannelMembers_Channel1_idx` ON `inf-5ogruppo3`.`ChannelMembers` (`channelID` ASC);
 
 SHOW WARNINGS;
-CREATE INDEX `fk_UtentiChannel_Ruoli1_idx` ON `webradio`.`ChannelMembers` (`roleID` ASC);
+CREATE INDEX `fk_UtentiChannel_Ruoli1_idx` ON `inf-5ogruppo3`.`ChannelMembers` (`roleID` ASC);
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `webradio`.`SystemMembers`
+-- Table `inf-5ogruppo3`.`SystemMembers`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `webradio`.`SystemMembers` ;
+DROP TABLE IF EXISTS `inf-5ogruppo3`.`SystemMembers` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `webradio`.`SystemMembers` (
+CREATE TABLE IF NOT EXISTS `inf-5ogruppo3`.`SystemMembers` (
   `userID` INT UNSIGNED NOT NULL,
   `roleID` INT UNSIGNED NOT NULL,
   `inputDate` DATE NOT NULL,
   PRIMARY KEY (`userID`, `roleID`),
   CONSTRAINT `fk_SystemMembers_User1`
     FOREIGN KEY (`userID`)
-    REFERENCES `webradio`.`Users` (`ID`)
+    REFERENCES `inf-5ogruppo3`.`Users` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_UtentiSistema_Ruoli1`
     FOREIGN KEY (`roleID`)
-    REFERENCES `webradio`.`Roles` (`ID`)
+    REFERENCES `inf-5ogruppo3`.`Roles` (`ID`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_UtentiSistema_Ruoli1_idx` ON `webradio`.`SystemMembers` (`roleID` ASC);
+CREATE INDEX `fk_UtentiSistema_Ruoli1_idx` ON `inf-5ogruppo3`.`SystemMembers` (`roleID` ASC);
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `webradio`.`ListPlaylists`
+-- Table `inf-5ogruppo3`.`ListPlaylists`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `webradio`.`ListPlaylists` ;
+DROP TABLE IF EXISTS `inf-5ogruppo3`.`ListPlaylists` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `webradio`.`ListPlaylists` (
+CREATE TABLE IF NOT EXISTS `inf-5ogruppo3`.`ListPlaylists` (
   `playlistID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `channelID` INT UNSIGNED NOT NULL,
   `creatorUserID` INT UNSIGNED NOT NULL,
@@ -258,59 +258,59 @@ CREATE TABLE IF NOT EXISTS `webradio`.`ListPlaylists` (
   PRIMARY KEY (`playlistID`),
   CONSTRAINT `fk_PlaylistList_User1`
     FOREIGN KEY (`creatorUserID`)
-    REFERENCES `webradio`.`Users` (`ID`)
+    REFERENCES `inf-5ogruppo3`.`Users` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_PlaylistList_Channel1`
     FOREIGN KEY (`channelID`)
-    REFERENCES `webradio`.`Channels` (`ID`)
+    REFERENCES `inf-5ogruppo3`.`Channels` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `playlistID_UNIQUE` ON `webradio`.`ListPlaylists` (`playlistID` ASC);
+CREATE UNIQUE INDEX `playlistID_UNIQUE` ON `inf-5ogruppo3`.`ListPlaylists` (`playlistID` ASC);
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `webradio`.`Playlists`
+-- Table `inf-5ogruppo3`.`Playlists`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `webradio`.`Playlists` ;
+DROP TABLE IF EXISTS `inf-5ogruppo3`.`Playlists` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `webradio`.`Playlists` (
+CREATE TABLE IF NOT EXISTS `inf-5ogruppo3`.`Playlists` (
   `playlistID` INT UNSIGNED NOT NULL,
   `order` INT UNSIGNED NOT NULL,
   `trackID` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`playlistID`, `order`),
   CONSTRAINT `fk_Playlist_Track1`
     FOREIGN KEY (`trackID`)
-    REFERENCES `webradio`.`Tracks` (`ID`)
+    REFERENCES `inf-5ogruppo3`.`Tracks` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Playlists_ListPlaylists1`
     FOREIGN KEY (`playlistID`)
-    REFERENCES `webradio`.`ListPlaylists` (`playlistID`)
+    REFERENCES `inf-5ogruppo3`.`ListPlaylists` (`playlistID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_Playlist_Track1_idx` ON `webradio`.`Playlists` (`trackID` ASC);
+CREATE INDEX `fk_Playlist_Track1_idx` ON `inf-5ogruppo3`.`Playlists` (`trackID` ASC);
 
 SHOW WARNINGS;
-CREATE INDEX `fk_Playlists_ListPlaylists1_idx` ON `webradio`.`Playlists` (`playlistID` ASC);
+CREATE INDEX `fk_Playlists_ListPlaylists1_idx` ON `inf-5ogruppo3`.`Playlists` (`playlistID` ASC);
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `webradio`.`Logs`
+-- Table `inf-5ogruppo3`.`Logs`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `webradio`.`Logs` ;
+DROP TABLE IF EXISTS `inf-5ogruppo3`.`Logs` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `webradio`.`Logs` (
+CREATE TABLE IF NOT EXISTS `inf-5ogruppo3`.`Logs` (
   `ID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `userID` INT UNSIGNED NOT NULL,
   `inputDate` DATE NOT NULL,
@@ -318,74 +318,74 @@ CREATE TABLE IF NOT EXISTS `webradio`.`Logs` (
   PRIMARY KEY (`ID`),
   CONSTRAINT `fk_Log_Utenti1`
     FOREIGN KEY (`userID`)
-    REFERENCES `webradio`.`Users` (`ID`)
+    REFERENCES `inf-5ogruppo3`.`Users` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_Log_Utenti1_idx` ON `webradio`.`Logs` (`userID` ASC);
+CREATE INDEX `fk_Log_Utenti1_idx` ON `inf-5ogruppo3`.`Logs` (`userID` ASC);
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `ID_UNIQUE` ON `webradio`.`Logs` (`ID` ASC);
+CREATE UNIQUE INDEX `ID_UNIQUE` ON `inf-5ogruppo3`.`Logs` (`ID` ASC);
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `webradio`.`FavouriteChannels`
+-- Table `inf-5ogruppo3`.`FavouriteChannels`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `webradio`.`FavouriteChannels` ;
+DROP TABLE IF EXISTS `inf-5ogruppo3`.`FavouriteChannels` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `webradio`.`FavouriteChannels` (
+CREATE TABLE IF NOT EXISTS `inf-5ogruppo3`.`FavouriteChannels` (
   `userID` INT UNSIGNED NOT NULL,
   `channelID` INT UNSIGNED NOT NULL,
   `inputDate` DATE NOT NULL,
   PRIMARY KEY (`userID`, `channelID`),
   CONSTRAINT `fk_ChannelPreferiti_Utenti1`
     FOREIGN KEY (`userID`)
-    REFERENCES `webradio`.`Users` (`ID`)
+    REFERENCES `inf-5ogruppo3`.`Users` (`ID`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ChannelPreferiti_Channel1`
     FOREIGN KEY (`channelID`)
-    REFERENCES `webradio`.`Channels` (`ID`)
+    REFERENCES `inf-5ogruppo3`.`Channels` (`ID`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_ChannelPreferiti_Channel1_idx` ON `webradio`.`FavouriteChannels` (`channelID` ASC);
+CREATE INDEX `fk_ChannelPreferiti_Channel1_idx` ON `inf-5ogruppo3`.`FavouriteChannels` (`channelID` ASC);
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `webradio`.`Permissions`
+-- Table `inf-5ogruppo3`.`Permissions`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `webradio`.`Permissions` ;
+DROP TABLE IF EXISTS `inf-5ogruppo3`.`Permissions` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `webradio`.`Permissions` (
+CREATE TABLE IF NOT EXISTS `inf-5ogruppo3`.`Permissions` (
   `ID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`ID`))
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `description_UNIQUE` ON `webradio`.`Permissions` (`description` ASC);
+CREATE UNIQUE INDEX `description_UNIQUE` ON `inf-5ogruppo3`.`Permissions` (`description` ASC);
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `ID_UNIQUE` ON `webradio`.`Permissions` (`ID` ASC);
+CREATE UNIQUE INDEX `ID_UNIQUE` ON `inf-5ogruppo3`.`Permissions` (`ID` ASC);
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `webradio`.`BroadcastedQualities`
+-- Table `inf-5ogruppo3`.`BroadcastedQualities`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `webradio`.`BroadcastedQualities` ;
+DROP TABLE IF EXISTS `inf-5ogruppo3`.`BroadcastedQualities` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `webradio`.`BroadcastedQualities` (
+CREATE TABLE IF NOT EXISTS `inf-5ogruppo3`.`BroadcastedQualities` (
   `ID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(45) NOT NULL,
   `bitDepth` INT NULL DEFAULT 16,
@@ -396,37 +396,37 @@ CREATE TABLE IF NOT EXISTS `webradio`.`BroadcastedQualities` (
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `ID_UNIQUE` ON `webradio`.`BroadcastedQualities` (`ID` ASC);
+CREATE UNIQUE INDEX `ID_UNIQUE` ON `inf-5ogruppo3`.`BroadcastedQualities` (`ID` ASC);
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `webradio`.`RolesPermissions`
+-- Table `inf-5ogruppo3`.`RolesPermissions`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `webradio`.`RolesPermissions` ;
+DROP TABLE IF EXISTS `inf-5ogruppo3`.`RolesPermissions` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `webradio`.`RolesPermissions` (
+CREATE TABLE IF NOT EXISTS `inf-5ogruppo3`.`RolesPermissions` (
   `roleID` INT UNSIGNED NOT NULL,
   `permissionID` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`roleID`, `permissionID`),
   CONSTRAINT `fk_RuoliPermessi_Ruoli1`
     FOREIGN KEY (`roleID`)
-    REFERENCES `webradio`.`Roles` (`ID`)
+    REFERENCES `inf-5ogruppo3`.`Roles` (`ID`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_RuoliPermessi_Permessi1`
     FOREIGN KEY (`permissionID`)
-    REFERENCES `webradio`.`Permissions` (`ID`)
+    REFERENCES `inf-5ogruppo3`.`Permissions` (`ID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_RuoliPermessi_Ruoli1_idx` ON `webradio`.`RolesPermissions` (`roleID` ASC);
+CREATE INDEX `fk_RuoliPermessi_Ruoli1_idx` ON `inf-5ogruppo3`.`RolesPermissions` (`roleID` ASC);
 
 SHOW WARNINGS;
-CREATE INDEX `fk_RuoliPermessi_Permessi1_idx` ON `webradio`.`RolesPermissions` (`permissionID` ASC);
+CREATE INDEX `fk_RuoliPermessi_Permessi1_idx` ON `inf-5ogruppo3`.`RolesPermissions` (`permissionID` ASC);
 
 SHOW WARNINGS;
 
@@ -435,87 +435,87 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Data for table `webradio`.`Users`
+-- Data for table `inf-5ogruppo3`.`Users`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `webradio`;
-INSERT INTO `webradio`.`Users` (`ID`, `firstName`, `lastName`, `password`, `email`, `inputDate`) VALUES (1, 'System', NULL, DEFAULT, 'system@system', DEFAULT);
+USE `inf-5ogruppo3`;
+INSERT INTO `inf-5ogruppo3`.`Users` (`ID`, `firstName`, `lastName`, `password`, `email`, `inputDate`) VALUES (1, 'System', NULL, DEFAULT, 'system@system', DEFAULT);
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `webradio`.`Roles`
+-- Data for table `inf-5ogruppo3`.`Roles`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `webradio`;
-INSERT INTO `webradio`.`Roles` (`ID`, `description`, `systemChannel`) VALUES (1, 'administrator', 1);
-INSERT INTO `webradio`.`Roles` (`ID`, `description`, `systemChannel`) VALUES (2, 'administrator', 0);
+USE `inf-5ogruppo3`;
+INSERT INTO `inf-5ogruppo3`.`Roles` (`ID`, `description`, `systemChannel`) VALUES (1, 'administrator', 1);
+INSERT INTO `inf-5ogruppo3`.`Roles` (`ID`, `description`, `systemChannel`) VALUES (2, 'administrator', 0);
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `webradio`.`SystemMembers`
+-- Data for table `inf-5ogruppo3`.`SystemMembers`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `webradio`;
-INSERT INTO `webradio`.`SystemMembers` (`userID`, `roleID`, `inputDate`) VALUES (1, 1, DEFAULT);
+USE `inf-5ogruppo3`;
+INSERT INTO `inf-5ogruppo3`.`SystemMembers` (`userID`, `roleID`, `inputDate`) VALUES (1, 1, DEFAULT);
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `webradio`.`Permissions`
+-- Data for table `inf-5ogruppo3`.`Permissions`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `webradio`;
-INSERT INTO `webradio`.`Permissions` (`ID`, `description`) VALUES (1, 'members');
-INSERT INTO `webradio`.`Permissions` (`ID`, `description`) VALUES (2, 'logs');
-INSERT INTO `webradio`.`Permissions` (`ID`, `description`) VALUES (3, 'channels');
-INSERT INTO `webradio`.`Permissions` (`ID`, `description`) VALUES (4, 'settings');
-INSERT INTO `webradio`.`Permissions` (`ID`, `description`) VALUES (5, 'albums');
-INSERT INTO `webradio`.`Permissions` (`ID`, `description`) VALUES (6, 'playlists');
-INSERT INTO `webradio`.`Permissions` (`ID`, `description`) VALUES (7, 'roles');
-INSERT INTO `webradio`.`Permissions` (`ID`, `description`) VALUES (8, 'genres');
+USE `inf-5ogruppo3`;
+INSERT INTO `inf-5ogruppo3`.`Permissions` (`ID`, `description`) VALUES (1, 'members');
+INSERT INTO `inf-5ogruppo3`.`Permissions` (`ID`, `description`) VALUES (2, 'logs');
+INSERT INTO `inf-5ogruppo3`.`Permissions` (`ID`, `description`) VALUES (3, 'channels');
+INSERT INTO `inf-5ogruppo3`.`Permissions` (`ID`, `description`) VALUES (4, 'settings');
+INSERT INTO `inf-5ogruppo3`.`Permissions` (`ID`, `description`) VALUES (5, 'albums');
+INSERT INTO `inf-5ogruppo3`.`Permissions` (`ID`, `description`) VALUES (6, 'playlists');
+INSERT INTO `inf-5ogruppo3`.`Permissions` (`ID`, `description`) VALUES (7, 'roles');
+INSERT INTO `inf-5ogruppo3`.`Permissions` (`ID`, `description`) VALUES (8, 'genres');
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `webradio`.`BroadcastedQualities`
+-- Data for table `inf-5ogruppo3`.`BroadcastedQualities`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `webradio`;
-INSERT INTO `webradio`.`BroadcastedQualities` (`ID`, `description`, `bitDepth`, `bitRate`, `sampleRate`, `channels`) VALUES (1, 'LQ', NULL, 128, 44100, 2);
-INSERT INTO `webradio`.`BroadcastedQualities` (`ID`, `description`, `bitDepth`, `bitRate`, `sampleRate`, `channels`) VALUES (2, 'MQ', NULL, 192, 44100, 2);
-INSERT INTO `webradio`.`BroadcastedQualities` (`ID`, `description`, `bitDepth`, `bitRate`, `sampleRate`, `channels`) VALUES (3, 'HQ', NULL, 256, 44100, 2);
-INSERT INTO `webradio`.`BroadcastedQualities` (`ID`, `description`, `bitDepth`, `bitRate`, `sampleRate`, `channels`) VALUES (4, 'HQ+', NULL, 320, 44100, DEFAULT);
+USE `inf-5ogruppo3`;
+INSERT INTO `inf-5ogruppo3`.`BroadcastedQualities` (`ID`, `description`, `bitDepth`, `bitRate`, `sampleRate`, `channels`) VALUES (1, 'LQ', NULL, 128, 44100, 2);
+INSERT INTO `inf-5ogruppo3`.`BroadcastedQualities` (`ID`, `description`, `bitDepth`, `bitRate`, `sampleRate`, `channels`) VALUES (2, 'MQ', NULL, 192, 44100, 2);
+INSERT INTO `inf-5ogruppo3`.`BroadcastedQualities` (`ID`, `description`, `bitDepth`, `bitRate`, `sampleRate`, `channels`) VALUES (3, 'HQ', NULL, 256, 44100, 2);
+INSERT INTO `inf-5ogruppo3`.`BroadcastedQualities` (`ID`, `description`, `bitDepth`, `bitRate`, `sampleRate`, `channels`) VALUES (4, 'HQ+', NULL, 320, 44100, DEFAULT);
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `webradio`.`RolesPermissions`
+-- Data for table `inf-5ogruppo3`.`RolesPermissions`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `webradio`;
-INSERT INTO `webradio`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (1, 1);
-INSERT INTO `webradio`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (1, 2);
-INSERT INTO `webradio`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (1, 3);
-INSERT INTO `webradio`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (1, 4);
-INSERT INTO `webradio`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (1, 5);
-INSERT INTO `webradio`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (1, 6);
-INSERT INTO `webradio`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (1, 7);
-INSERT INTO `webradio`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (1, 8);
-INSERT INTO `webradio`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (2, 1);
-INSERT INTO `webradio`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (2, 2);
-INSERT INTO `webradio`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (2, 3);
-INSERT INTO `webradio`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (2, 4);
-INSERT INTO `webradio`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (2, 5);
-INSERT INTO `webradio`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (2, 6);
-INSERT INTO `webradio`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (2, 7);
-INSERT INTO `webradio`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (2, 8);
+USE `inf-5ogruppo3`;
+INSERT INTO `inf-5ogruppo3`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (1, 1);
+INSERT INTO `inf-5ogruppo3`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (1, 2);
+INSERT INTO `inf-5ogruppo3`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (1, 3);
+INSERT INTO `inf-5ogruppo3`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (1, 4);
+INSERT INTO `inf-5ogruppo3`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (1, 5);
+INSERT INTO `inf-5ogruppo3`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (1, 6);
+INSERT INTO `inf-5ogruppo3`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (1, 7);
+INSERT INTO `inf-5ogruppo3`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (1, 8);
+INSERT INTO `inf-5ogruppo3`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (2, 1);
+INSERT INTO `inf-5ogruppo3`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (2, 2);
+INSERT INTO `inf-5ogruppo3`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (2, 3);
+INSERT INTO `inf-5ogruppo3`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (2, 4);
+INSERT INTO `inf-5ogruppo3`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (2, 5);
+INSERT INTO `inf-5ogruppo3`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (2, 6);
+INSERT INTO `inf-5ogruppo3`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (2, 7);
+INSERT INTO `inf-5ogruppo3`.`RolesPermissions` (`roleID`, `permissionID`) VALUES (2, 8);
 
 COMMIT;
 

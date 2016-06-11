@@ -38,9 +38,8 @@ function Account(dataManager, channelManager){
     this._app.get("/logout", (function(req, res){
         req.session.regenerate((function(err){ //session reset
             this._removeCookies(res);
+            res.redirect("/website/homepage");
         }).bind(this));
-        
-        res.redirect("/website/homepage");
     }).bind(this));
     
     this._app.post("/checkLogin", (function(req, res){

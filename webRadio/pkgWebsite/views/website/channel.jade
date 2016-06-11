@@ -2,7 +2,7 @@ extends ./../layout.jade
 
 block append body
     div.container(id="channel")
-        h1 #{channel.name} (#{channel.id})
+        h1 #{channel.name}
         hr
         
         div.row.container
@@ -30,14 +30,26 @@ block append body
                             div(id="playerVolumeSlider")
                         div.col-md-5.col-md-offset-1.col-lg-5.col-lg-offset-1.col-sm-5.col-sm-offset-1.col-xs-5.col-xs-offset-1.row.container.vcenter
                             form.form-inline.row.container-fluid
-                                input(type="hidden", name="txChannelId", id="txChannelId", value= channel.id)
+                                input(type="hidden", name="txtChannelId", id="txtChannelId", value= channel.id)
                                 label(for="cmbQualities") Qualità: 
                                 select.form-control(name="cmbQualities", id="cmbQualities")
                                     each quality in qualities
                                         option(value= quality.bitRate) #{quality.description}
                     
                 audio(autoplay, preload="none", id="playerAudio", name="playerAudio")
-                    source(id="playerAudioSource", name="playerAudioSource", src="/website/listenTo?id=" + parseInt(channel.id) + "&quality=" + (qualities[0].bitRate ? qualities[0].bitRate : '128'), type="audio/mpeg")
+                    source(id="playerAudioSource", name="playerAudioSource", type="audio/mpeg")
                     p Errore: è necessario aggiornare il browser a una versione che supporti HTML5
                     script.
                         getMetadata();
+        hr     
+        div.row.container-fluid
+            div.alert.alert-info(role="alert")
+                div.row
+                    p.text-center Se il player non funziona o ne vuoi usare un altro ecco qui l'URL per questo canale!
+                div.row.container-fluid
+                    div.col-lg-9.col-md-9.col-sd-9.col-xs-9
+                        input.form-control.pull-left(type="text", name="txtChannelURL", id="txtChannelURL", readonly)
+                    btn.btn.btn-default.col-lg-3.col-md-3.col-sd-3.col-xs-3(id="btnChannelURL", name="btnChannelURL", data-clipboard-action="copy", data-clipboard-target="#txtChannelURL") Copia negli appunti
+                    
+            script.
+                updateAudioSource(); //init

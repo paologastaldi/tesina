@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    new Clipboard('#btnChannelURL');
     
     if(typeof(page) !== "undefined") $(page).addClass("active"); /*activation of the select menù item*/
     
@@ -159,22 +160,8 @@ $(document).ready(function(){
         $("#playerBtnPlayPauseImg").fadeTo(200, 0);
     });
     
-    /*function to update audio source url*/
-    function updateAudioSource(source){
-        $("#playerAudioSource").attr("src", source);
-        console.log("Source resetted");
-    }
-    
-    var quality = 128; //default quality
-    
     /*player quality selector*/
-    $("#cmbQualities").change(function(){
-        quality = $("#cmbQualities").val();
-        updateAudioSource("/website/listenTo?id=" + $("#txChannelId").val() + "&quality=" + quality); //creating source url);
-        
-        $("#playerAudio").trigger("load"); //forcing reset
-        $("#playerAudio").trigger("play");
-    });
+    $("#cmbQualities").change(updateAudioSource);
     
     /*playlist tracks*/
     $("ol.sortableList").sortable({
@@ -233,11 +220,27 @@ function getMetadata(){
             if(typeof(metadata.author) === "string" && metadata.author.trim() !== "") $("#txtPlayerAuthor").text(metadata.author)
             else $("#txtPlayerAuthor").text("Autore sconosciuto");
             
-            if(typeof(metadata.thumbnail) === "string" && metadata.thumbnail.trim() !== "") $("#playerThumbnail").attr("src", "../../img/" + metadata.thumbnail);
+            if(typeof(metadata.thumbnail) === "string" && metadata.thumbnail.trim() !== "" && metadata.thumbnail !== "null") $("#playerThumbnail").attr("src", "../../img/" + metadata.thumbnail);
             else $("#playerThumbnail").attr("src", "../../img/defaultThumbnail.jpg");
             
             initialMetadata = false;
             getMetadata(); //recursive function to get metadata of the next track
         }
     });
+}
+
+var quality = 128; //default quality
+    
+/*function to update audio source url*/
+function updateAudioSource(){
+    quality = $("#cmbQualities").val();
+    var source = "/website/listenTo?id=" + $("#txtChannelId").val() + "&quality=" + quality;
+    
+    $("#playerAudioSource").attr("src", source);
+    console.log("Source resetted");
+    
+    $("#playerAudio").trigger("load"); //forcing reset
+    $("#playerAudio").trigger("play");
+    
+    $("#txtChannelURL").val(window.location.hostname + (window.location.port ? ':' + window.location.port : '') + source);
 }

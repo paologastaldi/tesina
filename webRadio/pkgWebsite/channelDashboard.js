@@ -376,7 +376,7 @@ function ChannelDashboard(dataManager, channelManager){
             id: req.body.txtTrackId,
             title: req.body.txtTitle,
             author: req.body.txtAuthor
-        }, function(result){
+        }, (function(result){
             if(!result) this._errors.push(8);
             res.redirect("/dashboard/channel/albumTracks");
             
@@ -385,7 +385,7 @@ function ChannelDashboard(dataManager, channelManager){
                 messageId: 11,
                 description: "channel id: " + req.session['channelDashboard'] + ", album id: " + req.session['selectedAlbum']
             });
-        });
+        }).bind(this));
     }).bind(this));
     
     this._app.post("/removeAlbumTrack", (function(req, res){
